@@ -250,16 +250,17 @@
           if (items.length < 1) {
               selected = undefined;
           }
+          else if (!selected) {
+              selected = items[items.length - 1];
+          }
+          else if (selected === items[0]) {
+              selected = settings.disableAutoSelect ? undefined : items[items.length - 1];
+          }
           else {
-              if (selected === items[0]) {
-                  selected = items[items.length - 1];
-              }
-              else {
-                  for (var i = items.length - 1; i > 0; i--) {
-                      if (selected === items[i] || i === 1) {
-                          selected = items[i - 1];
-                          break;
-                      }
+              for (var i = items.length - 1; i > 0; i--) {
+                  if (selected === items[i] || i === 1) {
+                      selected = items[i - 1];
+                      break;
                   }
               }
           }
@@ -271,14 +272,18 @@
           if (items.length < 1) {
               selected = undefined;
           }
-          if (!selected || selected === items[items.length - 1]) {
+          else if (!selected) {
               selected = items[0];
-              return;
           }
-          for (var i = 0; i < (items.length - 1); i++) {
-              if (selected === items[i]) {
-                  selected = items[i + 1];
-                  break;
+          else if (selected === items[items.length - 1]) {
+              selected = settings.disableAutoSelect ? undefined : items[0];
+          }
+          else {
+              for (var i = 0; i < (items.length - 1); i++) {
+                  if (selected === items[i]) {
+                      selected = items[i + 1];
+                      break;
+                  }
               }
           }
       }
@@ -333,7 +338,7 @@
                       if (keypressCounter === savedKeypressCounter && elements) {
                           items = elements;
                           inputValue = val;
-                          selected = items.length > 0 ? items[0] : undefined;
+                          selected = (items.length < 1 || settings.disableAutoSelect) ? undefined : items[0];
                           update();
                       }
                   }, 0 /* Keyboard */);
