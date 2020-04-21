@@ -2,7 +2,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
   (global = global || self, global.autocomplete = factory());
-}(this, function () { 'use strict';
+}(this, (function () { 'use strict';
 
   /*
    * https://github.com/kraaden/autocomplete
@@ -157,7 +157,7 @@
               var div = render(item, inputValue);
               if (div) {
                   div.addEventListener("click", function (ev) {
-                      settings.onSelect(item, input);
+                      settings.onSelect(ev, item, input);
                       clear();
                       ev.preventDefault();
                       ev.stopPropagation();
@@ -306,7 +306,7 @@
           }
           if (keyCode === 13 /* Enter */) {
               if (selected) {
-                  settings.onSelect(selected, input);
+                  settings.onSelect(ev, selected, input);
                   clear();
               }
               if (preventSubmit) {
@@ -390,5 +390,5 @@
 
   return autocomplete;
 
-}));
+})));
 //# sourceMappingURL=autocomplete.js.map

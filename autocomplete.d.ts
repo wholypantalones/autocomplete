@@ -13,7 +13,7 @@ export interface AutocompleteSettings<T extends AutocompleteItem> {
     className?: string;
     minLength?: number;
     emptyMsg?: string;
-    onSelect: (item: T, input: HTMLInputElement) => void;
+    onSelect: (event: MouseEvent | KeyboardEvent, item: T, input: HTMLInputElement) => void;
     /**
      * Show autocomplete on focus event. Focus event will ignore the `minLength` property and will always call `fetch`.
      */
